@@ -20,7 +20,7 @@ export default function SearchInput() {
   return (
     <div
       ref={wrapperRef}
-      className="flex w-full items-center rounded-[24px] bg-black/10 p-[21.943px] backdrop-blur-[20px]"
+      className="flex w-full items-center rounded-[18px] bg-black/10 p-[16.457px] backdrop-blur-[15px]"
       data-layer-name="Search input Area_Text / Scenario Title"
     >
       <input
@@ -29,7 +29,7 @@ export default function SearchInput() {
         onFocus={() => animateFocus(true)}
         onBlur={() => animateFocus(false)}
         placeholder="여기에 검색어 입력"
-        className="h-[33px] w-full border-0 bg-transparent text-[22px] font-medium leading-[1.5] text-white outline-none placeholder:text-white/90"
+        className="h-[25px] w-full border-0 bg-transparent text-[16.5px] font-medium leading-[1.5] tracking-[-0.165px] text-white outline-none placeholder:text-white/90"
       />
     </div>
   );

@@ -9,7 +9,7 @@ const options = [
     label: "Cube View",
     icon: cubeIcon,
     active: true,
-    className: "gap-[6px]",
+    className: "gap-[4.5px]",
   },
   { label: "User View", icon: userIcon },
   { label: "Group View", icon: groupIcon },
@@ -20,22 +20,22 @@ export default function ViewSwitcher() {
   return (
     <nav
       aria-label="View switcher"
-      className="absolute left-1/2 top-[77px] z-20 flex h-[66px] w-[412px] -translate-x-1/2 items-center justify-center rounded-full border border-white/[0.05] bg-[#777]/20 p-[6px] shadow-glass-soft backdrop-blur-[35px]"
+      className="absolute left-[calc(50%+0.5px)] top-[85.25px] z-20 flex h-[49.5px] w-[309px] -translate-x-1/2 items-center justify-center rounded-[749.25px] border-[0.75px] border-white/[0.05] bg-[#777]/20 shadow-glass-soft backdrop-blur-[26.25px]"
       data-layer-name="Navigation / View Switcher HUD"
       data-animate="hud"
     >
-      <div className="flex h-[54px] w-[400px] items-center justify-center gap-[5.486px]">
+      <div className="flex h-[40.5px] w-[300px] items-center justify-center gap-[4.114px]">
         {options.map((option) => (
           <GlassButton
             key={option.label}
             active={option.active}
             ariaLabel={option.label}
-            className={`!h-[54px] !py-[12px] !text-[22px] ${option.active ? "!w-[177px] !min-w-[177px] !px-[20px]" : "!w-[64px] !px-0"} ${option.className ?? ""}`}
+            className={`!h-[40.5px] !rounded-[30.171px] !py-[9px] !text-[16.5px] !leading-[1.5] !backdrop-blur-[13.714px] ${option.active ? "!w-[132.5px] !min-w-[132.5px] !px-[15px]" : "!w-[48px] !px-[15px]"} ${option.className ?? ""}`}
           >
             <img
               src={option.icon}
               alt=""
-              className="h-[24px] w-[24px] select-none object-contain"
+              className="h-[18px] w-[18px] select-none object-contain"
               draggable="false"
             />
             {option.active ? (

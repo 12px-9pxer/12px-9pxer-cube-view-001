@@ -100,12 +100,12 @@ export default function FirstPage({ onEnterCube }) {
           data-first-card
         >
           <div
-            className="absolute left-1/2 top-[37px] flex w-[381px] -translate-x-1/2 flex-col items-start justify-center rounded-[24px] bg-black/0 p-[21.943px] backdrop-blur-[20px]"
+            className="absolute left-[44px] top-[37px] flex h-[187.886px] w-[381px] flex-col items-start justify-center rounded-[24px] p-[21.943px]"
             data-node-id="573:64"
             data-layer-name="Scenario Search Bar / Title Area"
           >
             <p
-              className="w-full whitespace-pre-line text-center text-[24px] font-bold leading-[1.5] text-white"
+              className="w-full whitespace-pre-wrap text-center text-[24px] font-bold leading-[1.5] text-white"
               data-node-id="573:65"
               data-layer-name="Search input Area_Text / Scenario Title"
             >

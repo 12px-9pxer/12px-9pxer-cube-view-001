@@ -12,6 +12,7 @@ export default function ScenarioDock() {
       className="absolute inset-x-0 bottom-0 z-20 flex h-[216.664px] justify-center px-6 py-[40px]"
       data-layer-name="Scenario Overlay / Bottom Dock"
       data-animate="dock"
+      data-cube-ui
     >
       <div
         className="flex h-[136.664px] w-[calc(100vw-48px)] max-w-[780px] min-w-0 flex-col gap-[8.25px] overflow-hidden rounded-[30.171px] bg-[#777]/20 px-[11.25px] py-[7.5px] shadow-glass-soft outline outline-[0.75px] outline-offset-[-0.75px] outline-white/[0.05] backdrop-blur-[26.25px]"

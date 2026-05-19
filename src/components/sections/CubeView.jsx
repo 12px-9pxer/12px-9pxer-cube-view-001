@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import CubeMapScene from "./CubeMapScene.jsx";
 import LogoButton from "../ui/LogoButton.jsx";
@@ -7,6 +7,7 @@ import ViewSwitcher from "./ViewSwitcher.jsx";
 
 export default function CubeView() {
   const cubeRef = useRef(null);
+  const [isCubeFocused, setIsCubeFocused] = useState(false);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -38,6 +39,46 @@ export default function CubeView() {
     return () => ctx.revert();
   }, []);
 
+  useEffect(() => {
+    const uiElements = gsap.utils.toArray(cubeRef.current?.querySelectorAll("[data-cube-ui]"));
+
+    if (!uiElements.length) {
+      return undefined;
+    }
+
+    if (!isCubeFocused) {
+      gsap.set(uiElements, {
+        autoAlpha: 1,
+        filter: "blur(0px)",
+        pointerEvents: "auto",
+      });
+    }
+
+    gsap.to(uiElements, {
+      autoAlpha: isCubeFocused ? 0 : 1,
+      filter: isCubeFocused ? "blur(10px)" : "blur(0px)",
+      duration: isCubeFocused ? 0.28 : 0.36,
+      ease: "power3.out",
+      overwrite: true,
+      pointerEvents: isCubeFocused ? "none" : "auto",
+      onComplete: () => {
+        uiElements.forEach((element) => {
+          element.style.visibility = isCubeFocused ? "hidden" : "visible";
+          element.style.pointerEvents = isCubeFocused ? "none" : "auto";
+        });
+      },
+    });
+
+    return () => {
+      gsap.killTweensOf(uiElements);
+      gsap.set(uiElements, {
+        autoAlpha: 1,
+        filter: "blur(0px)",
+        pointerEvents: "auto",
+      });
+    };
+  }, [isCubeFocused]);
+
   return (
     <section
       ref={cubeRef}
@@ -45,7 +86,7 @@ export default function CubeView() {
       data-node-id="533:307"
       data-layer-name="Screen / Cube View"
     >
-      <CubeMapScene />
+      <CubeMapScene onFocusChange={setIsCubeFocused} />
       <LogoButton />
       <ViewSwitcher />
       <ScenarioDock />

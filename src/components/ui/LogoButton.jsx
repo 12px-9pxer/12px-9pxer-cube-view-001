@@ -15,9 +15,10 @@ export default function LogoButton() {
       onMouseLeave={() => hoverOut(buttonRef.current)}
       onMouseDown={() => pressIn(buttonRef.current, 0.94)}
       onMouseUp={() => pressOut(buttonRef.current)}
-      className="absolute left-[clamp(20px,2.08vw,40px)] top-[7.13vh] z-20 flex w-[clamp(88px,8.6vw,165px)] origin-center items-start border-0 bg-transparent p-0 outline-none focus-visible:ring-2 focus-visible:ring-white/70 max-[520px]:top-[28px]"
+      className="absolute left-[clamp(20px,2.08vw,40px)] top-[max(12px,calc(7.13vh-50px))] z-20 flex w-[clamp(88px,8.6vw,165px)] origin-center items-start border-0 bg-transparent p-0 outline-none focus-visible:ring-2 focus-visible:ring-white/70 max-[520px]:top-[12px]"
       data-layer-name="Brand / Hyundai Playbook Logo"
       data-animate="hud"
+      data-cube-ui
     >
       <img
         src={logo}

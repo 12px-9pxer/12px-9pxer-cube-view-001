@@ -20,9 +20,10 @@ export default function ViewSwitcher() {
   return (
     <nav
       aria-label="View switcher"
-      className="absolute left-[calc(50%+0.5px)] top-[85.25px] z-20 flex h-[49.5px] w-[309px] -translate-x-1/2 items-center justify-center rounded-[749.25px] border-[0.75px] border-white/[0.05] bg-[#777]/20 shadow-glass-soft backdrop-blur-[26.25px]"
+      className="absolute left-[calc(50%+0.5px)] top-[35.25px] z-20 flex h-[49.5px] w-[309px] -translate-x-1/2 items-center justify-center rounded-[749.25px] border-[0.75px] border-white/[0.05] bg-[#777]/20 shadow-glass-soft backdrop-blur-[26.25px]"
       data-layer-name="Navigation / View Switcher HUD"
       data-animate="hud"
+      data-cube-ui
     >
       <div className="flex h-[40.5px] w-[300px] items-center justify-center gap-[4.114px]">
         {options.map((option) => (

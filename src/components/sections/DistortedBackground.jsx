@@ -3,15 +3,15 @@ import { useEffect, useRef } from "react";
 export const IDLE_DISTORTION_PARAMS = {
   edgeStart: 0.02,
   edgeEnd: 0.14,
-  breathSpeed: 0.62,
+  breathSpeed: 1.0,
   radialFrequency: 18.0,
   radialSpeed: 1.18,
-  radialStrength: 0.0018,
-  horizontalFrequency: 8.0,
-  horizontalSpeed: 0.56,
-  horizontalStrength: 0.0022,
+  radialStrength: 0.018,
+  horizontalFrequency: 4.0,
+  horizontalSpeed: 1.00,
+  horizontalStrength: 0.01,
   verticalFrequency: 6.0,
-  verticalSpeed: 0.48,
+  verticalSpeed: 1.0,
   verticalStrength: 0.0016,
   brightnessBase: 0.99,
   brightnessPulse: 0.01,
@@ -257,6 +257,9 @@ export default function DistortedBackground({ src }) {
         gl.uniform2f(uResolution, width, height);
       };
 
+      const resizeObserver = new ResizeObserver(resize);
+      resizeObserver.observe(canvas);
+
       const render = () => {
         if (disposed) {
           return;
@@ -295,6 +298,7 @@ export default function DistortedBackground({ src }) {
         gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
         gl.uniform2f(uImageResolution, image.width, image.height);
         resize();
+        requestAnimationFrame(resize);
         canvas.style.opacity = "1";
         render();
       };
@@ -305,6 +309,7 @@ export default function DistortedBackground({ src }) {
         disposed = true;
         cancelAnimationFrame(animationFrame);
         window.removeEventListener("resize", resize);
+        resizeObserver.disconnect();
         gl.deleteTexture(texture);
         gl.deleteBuffer(buffer);
         gl.deleteProgram(program);

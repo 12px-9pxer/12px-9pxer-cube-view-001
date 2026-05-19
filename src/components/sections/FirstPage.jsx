@@ -73,18 +73,19 @@ export default function FirstPage({ onEnterCube }) {
       data-layer-name="Screen / First Page"
     >
       <div
-        className="absolute left-1/2 top-1/2 h-[calc(100%+2px)] w-[calc(100%+4px)] -translate-x-1/2 -translate-y-1/2"
+        className="absolute inset-[-2px] overflow-hidden"
         data-node-id="573:19"
         data-layer-name="image 2805"
-        data-first-background
       >
-        <img
-          src={firstPageBackground}
-          alt=""
-          className="h-full w-full select-none object-cover object-bottom"
-          draggable="false"
-        />
-        <DistortedBackground src={firstPageBackground} />
+        <div className="absolute inset-0 origin-center" data-first-background>
+          <img
+            src={firstPageBackground}
+            alt=""
+            className="absolute inset-0 h-full w-full select-none object-cover object-bottom"
+            draggable="false"
+          />
+          <DistortedBackground src={firstPageBackground} />
+        </div>
       </div>
 
       <div

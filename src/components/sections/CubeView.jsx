@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
-import BackgroundVideo from "./BackgroundVideo.jsx";
+import CubeMapScene from "./CubeMapScene.jsx";
 import LogoButton from "../ui/LogoButton.jsx";
 import ScenarioDock from "./ScenarioDock.jsx";
 import ViewSwitcher from "./ViewSwitcher.jsx";
@@ -45,7 +45,7 @@ export default function CubeView() {
       data-node-id="533:307"
       data-layer-name="Screen / Cube View"
     >
-      <BackgroundVideo />
+      <CubeMapScene />
       <LogoButton />
       <ViewSwitcher />
       <ScenarioDock />

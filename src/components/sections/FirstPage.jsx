@@ -3,6 +3,7 @@ import gsap from "gsap";
 import firstPageBackground from "../../assets/images/first-page-background.png";
 import logo from "../../assets/images/hyundai-playbook-logo.png";
 import cubeIcon from "../../assets/images/icon-cube-view.svg";
+import DistortedBackground from "./DistortedBackground.jsx";
 import GlassButton from "../ui/GlassButton.jsx";
 
 function getStageLayout() {
@@ -83,6 +84,7 @@ export default function FirstPage({ onEnterCube }) {
           className="h-full w-full select-none object-cover object-bottom"
           draggable="false"
         />
+        <DistortedBackground src={firstPageBackground} />
       </div>
 
       <div

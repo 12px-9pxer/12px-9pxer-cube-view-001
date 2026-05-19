@@ -1,5 +1,22 @@
 import { useEffect, useRef } from "react";
 
+export const IDLE_DISTORTION_PARAMS = {
+  edgeStart: 0.02,
+  edgeEnd: 0.14,
+  breathSpeed: 0.62,
+  radialFrequency: 18.0,
+  radialSpeed: 1.18,
+  radialStrength: 0.0018,
+  horizontalFrequency: 8.0,
+  horizontalSpeed: 0.56,
+  horizontalStrength: 0.0022,
+  verticalFrequency: 6.0,
+  verticalSpeed: 0.48,
+  verticalStrength: 0.0016,
+  brightnessBase: 0.99,
+  brightnessPulse: 0.01,
+};
+
 const vertexSource = `
   attribute vec2 aPosition;
   varying vec2 vUv;
@@ -17,6 +34,20 @@ const fragmentSource = `
   uniform vec2 uResolution;
   uniform vec2 uImageResolution;
   uniform float uTime;
+  uniform float uEdgeStart;
+  uniform float uEdgeEnd;
+  uniform float uBreathSpeed;
+  uniform float uRadialFrequency;
+  uniform float uRadialSpeed;
+  uniform float uRadialStrength;
+  uniform float uHorizontalFrequency;
+  uniform float uHorizontalSpeed;
+  uniform float uHorizontalStrength;
+  uniform float uVerticalFrequency;
+  uniform float uVerticalSpeed;
+  uniform float uVerticalStrength;
+  uniform float uBrightnessBase;
+  uniform float uBrightnessPulse;
 
   varying vec2 vUv;
 
@@ -38,14 +69,19 @@ const fragmentSource = `
     vec2 uv = vUv;
     vec2 center = uv - 0.5;
     float dist = length(center);
-    float breath = sin(uTime * 0.62) * 0.5 + 0.5;
-    float edgeMask = smoothstep(0.02, 0.14, uv.x)
-      * smoothstep(0.02, 0.14, 1.0 - uv.x)
-      * smoothstep(0.02, 0.14, uv.y)
-      * smoothstep(0.02, 0.14, 1.0 - uv.y);
-    float radial = sin(dist * 18.0 - uTime * 1.18) * 0.0018;
-    float horizontal = sin((uv.y * 8.0) + uTime * 0.56) * 0.0022;
-    float vertical = cos((uv.x * 6.0) - uTime * 0.48) * 0.0016;
+    float breath = sin(uTime * uBreathSpeed) * 0.5 + 0.5;
+    float edgeMask = smoothstep(uEdgeStart, uEdgeEnd, uv.x)
+      * smoothstep(uEdgeStart, uEdgeEnd, 1.0 - uv.x)
+      * smoothstep(uEdgeStart, uEdgeEnd, uv.y)
+      * smoothstep(uEdgeStart, uEdgeEnd, 1.0 - uv.y);
+    float radial =
+      sin(dist * uRadialFrequency - uTime * uRadialSpeed) * uRadialStrength;
+    float horizontal =
+      sin((uv.y * uHorizontalFrequency) + uTime * uHorizontalSpeed)
+      * uHorizontalStrength;
+    float vertical =
+      cos((uv.x * uVerticalFrequency) - uTime * uVerticalSpeed)
+      * uVerticalStrength;
 
     uv += normalize(center + 0.0001) * radial * edgeMask * (0.45 + breath * 0.55);
     uv.x += horizontal * edgeMask;
@@ -54,7 +90,7 @@ const fragmentSource = `
     vec2 imageUv = coverUv(uv, uResolution, uImageResolution);
 
     vec4 color = texture2D(uTexture, imageUv);
-    color.rgb *= 0.99 + breath * 0.01;
+    color.rgb *= uBrightnessBase + breath * uBrightnessPulse;
 
     gl_FragColor = color;
   }
@@ -138,6 +174,74 @@ export default function DistortedBackground({ src }) {
         "uImageResolution",
       );
       const uTime = gl.getUniformLocation(program, "uTime");
+      const uEdgeStart = gl.getUniformLocation(program, "uEdgeStart");
+      const uEdgeEnd = gl.getUniformLocation(program, "uEdgeEnd");
+      const uBreathSpeed = gl.getUniformLocation(program, "uBreathSpeed");
+      const uRadialFrequency = gl.getUniformLocation(
+        program,
+        "uRadialFrequency",
+      );
+      const uRadialSpeed = gl.getUniformLocation(program, "uRadialSpeed");
+      const uRadialStrength = gl.getUniformLocation(
+        program,
+        "uRadialStrength",
+      );
+      const uHorizontalFrequency = gl.getUniformLocation(
+        program,
+        "uHorizontalFrequency",
+      );
+      const uHorizontalSpeed = gl.getUniformLocation(
+        program,
+        "uHorizontalSpeed",
+      );
+      const uHorizontalStrength = gl.getUniformLocation(
+        program,
+        "uHorizontalStrength",
+      );
+      const uVerticalFrequency = gl.getUniformLocation(
+        program,
+        "uVerticalFrequency",
+      );
+      const uVerticalSpeed = gl.getUniformLocation(program, "uVerticalSpeed");
+      const uVerticalStrength = gl.getUniformLocation(
+        program,
+        "uVerticalStrength",
+      );
+      const uBrightnessBase = gl.getUniformLocation(
+        program,
+        "uBrightnessBase",
+      );
+      const uBrightnessPulse = gl.getUniformLocation(
+        program,
+        "uBrightnessPulse",
+      );
+
+      gl.uniform1f(uEdgeStart, IDLE_DISTORTION_PARAMS.edgeStart);
+      gl.uniform1f(uEdgeEnd, IDLE_DISTORTION_PARAMS.edgeEnd);
+      gl.uniform1f(uBreathSpeed, IDLE_DISTORTION_PARAMS.breathSpeed);
+      gl.uniform1f(
+        uRadialFrequency,
+        IDLE_DISTORTION_PARAMS.radialFrequency,
+      );
+      gl.uniform1f(uRadialSpeed, IDLE_DISTORTION_PARAMS.radialSpeed);
+      gl.uniform1f(uRadialStrength, IDLE_DISTORTION_PARAMS.radialStrength);
+      gl.uniform1f(
+        uHorizontalFrequency,
+        IDLE_DISTORTION_PARAMS.horizontalFrequency,
+      );
+      gl.uniform1f(uHorizontalSpeed, IDLE_DISTORTION_PARAMS.horizontalSpeed);
+      gl.uniform1f(
+        uHorizontalStrength,
+        IDLE_DISTORTION_PARAMS.horizontalStrength,
+      );
+      gl.uniform1f(
+        uVerticalFrequency,
+        IDLE_DISTORTION_PARAMS.verticalFrequency,
+      );
+      gl.uniform1f(uVerticalSpeed, IDLE_DISTORTION_PARAMS.verticalSpeed);
+      gl.uniform1f(uVerticalStrength, IDLE_DISTORTION_PARAMS.verticalStrength);
+      gl.uniform1f(uBrightnessBase, IDLE_DISTORTION_PARAMS.brightnessBase);
+      gl.uniform1f(uBrightnessPulse, IDLE_DISTORTION_PARAMS.brightnessPulse);
 
       const resize = () => {
         const dpr = Math.min(window.devicePixelRatio || 1, 2);

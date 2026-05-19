@@ -25,5 +25,6 @@ npm run build
 ## Notes
 
 - 배경은 `src/assets/videos/bckvid.mp4`를 `video` 태그로 재생합니다.
+- 첫 페이지 배경 울렁임은 `src/components/sections/DistortedBackground.jsx`의 `IDLE_DISTORTION_PARAMS` 숫자로 조절합니다.
 - Hyundai Playbook 로고 클릭 시 `window.location.reload()`로 현재 페이지를 새로고침합니다.
 - 버튼 hover, active, 등장 모션, 검색창 focus 상태는 GSAP 기반으로 처리했습니다.
